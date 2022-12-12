@@ -19,6 +19,17 @@ class ViewController: UIViewController {
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        performSelector(inBackground: #selector(loadPicture), with: nil)
+        
+       
+        
+        setup()
+        style()
+        layout()
+        
+    }
+    
+    @objc func loadPicture(){
         //ファイルマネージャのインスタンス化
         let fm = FileManager.default
         //main.resourcePathはアプリに追加した全てのリソースを含むディレクトリを示す
@@ -36,9 +47,7 @@ class ViewController: UIViewController {
         
         pictures.sort()
         
-        setup()
-        style()
-        layout()
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         
     }
     
